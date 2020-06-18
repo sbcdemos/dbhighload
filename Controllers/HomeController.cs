@@ -13,28 +13,31 @@ namespace mysqlproject.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly DataContext _context;
+        private readonly DataContextFactory _contextFactory;
 
-        public HomeController(ILogger<HomeController> logger, DataContext context)
+
+        public HomeController(ILogger<HomeController> logger, DataContextFactory contextFactory)
         {
             _logger = logger;
-            _context = context;
+            this._contextFactory=contextFactory;
         }
 
         public IActionResult Index()
         {
-            var sale=new Sale{
-                ClientID=1,
-                ProductID=1,
-                Price=20,
-                Quantity=2,
-                TotalAmount=40
-            };
-            _context.Sales.Add(sale);
-            _context.SaveChanges();
-            var salesCount=_context.Sales.Count();
-            ViewBag.salescount = salesCount;
-            return View();
+            using (var _context=_contextFactory.CreateDbContext(null)){
+                var sale=new Sale{
+                    ClientID=1,
+                    ProductID=1,
+                    Price=20,
+                    Quantity=2,
+                    TotalAmount=40
+                };
+                _context.Sales.Add(sale);
+                _context.SaveChanges();
+                var salesCount=_context.Sales.Count();
+                ViewBag.salescount = salesCount;
+                return View();
+            }
         }
 
         public IActionResult Privacy()

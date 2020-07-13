@@ -38,7 +38,7 @@ namespace mysqlproject.Controllers
                     var alreadySoldByClient = ro_ctx.Sales.Where(x=>x.ClientID == saleData.ClientID).Sum(x=>x.TotalAmount);
                     var alreadySoldByProduct = ro_ctx.Sales.Where(x=>x.ProductID == saleData.ProductID).Sum(x=>x.TotalAmount);
                     var alreadySoldByClientAndProduct = ro_ctx.Sales.Where(x=>x.ClientID == saleData.ClientID && x.ProductID==saleData.ProductID).Sum(x=>x.TotalAmount);
-                    var alreadySoldByLastMinute=ro_ctx.Sales.Where(x=>x.TheDate>lastminute).Sum(x=>x.TotalAmount);
+                    var alreadySoldByLastMinute = 0;//=ro_ctx.Sales.Where(x=>x.TheDate>lastminute).Sum(x=>x.TotalAmount);
                     var r=new Random();
                     var rvalue = r.Next(1000);
 

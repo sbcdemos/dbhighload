@@ -36,7 +36,7 @@ namespace mysqlproject.Controllers
                 var product = conn.Get<Product>(saleData.ProductID);
                 var client = conn.Get<Client>(saleData.ClientID);
 
-                var alreadySoldByClient = conn.Query<decimal>("select sum(TotalAmount) from Sales where ClientID=@ClientID", new {ClientID=saleData.ClientID}).First();
+                var alreadySoldByClient = conn.Query<decimal?>("select sum(TotalAmount) from Sales where ClientID=@ClientID", new {ClientID=saleData.ClientID}).FirstOrDefault();
 
                 var sale=new Sale();
                 sale.TheDate = DateTime.Now;
@@ -53,7 +53,7 @@ namespace mysqlproject.Controllers
                     ProductName = product.Name,
                     Quantity = sale.Quantity,
                     TotalAmount = sale.TotalAmount,
-                    ClientTotalAmount = alreadySoldByClient,
+                    ClientTotalAmount = alreadySoldByClient??0,
                     ProductTotalAmount =0, // alreadySoldByProduct,
                     ProductByClientTotalAmount = 0,//alreadySoldByClientAndProduct,
                     LastMinuteTotalAmount = 0//alreadySoldByLastMinute

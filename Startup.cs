@@ -23,11 +23,12 @@ namespace mysqlproject
         }
 
         public IConfiguration Configuration { get; }
+       
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+              services.AddControllersWithViews();
             /*
             services.AddDbContext<DataContext>(options => options
                 // replace with your connection string
@@ -44,7 +45,7 @@ namespace mysqlproject
                     .ServerVersion(new Version(5, 7, 0), ServerType.MySql)
                     .CommandTimeout(10000)
             ));*/
-            services.AddTransient<DataContextFactory>();
+            //services.AddTransient<DataContextFactory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

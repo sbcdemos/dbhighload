@@ -28,15 +28,7 @@ namespace mysqlproject.Controllers
                 
                 result +=_configuration.GetConnectionString("SalesDatabase")+"\n\r";
 
-                var client = new DnsClient.LookupClient();
-                client.UseCache=false;
-                var dnsresult = client.Query("readonly.dbwebinar.local", QueryType.A).AllRecords.First();
-                var adr = ((DnsClient.Protocol.ARecord)dnsresult).Address.ToString();
-                result+="IPAddress of 'readonly.dbwebinar.local' is:\n\r "+adr+"\n\r";
-
-                dnsresult = client.Query("master.dbwebinar.local", QueryType.A).AllRecords.First();
-                adr = ((DnsClient.Protocol.ARecord)dnsresult).Address.ToString();
-                result+="IPAddress of 'master.dbwebinar.local' is:\n\r "+adr+"\n\r";
+                
 
                 return Ok(result);
             }

@@ -103,7 +103,6 @@ namespace mysqlproject.Controllers
                 }
             }
             */
-            return Ok();
         }
     }
 }
